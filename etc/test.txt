@@ -1,0 +1,178 @@
+Environmental and Property Tests
+--------------------------------
+
+- verify error generated if JAVA_HOME not set
+- verify error generated if UPDATER_HOME not set
+
+- verify error generated if updater.update not set
+- verify error generated if updater.update empty
+- verify error generated if updater.update does not contain $tk
+- verify error generated if updater.update does not contain $op
+- verify error generated if updater.update does not contain $hi
+- verify error generated if updater.update does not contain $lo
+- verify error generated if updater.update does not contain $cl
+- verify error generated if updater.update does not contain $vl
+- verify error generated if updater.update contains 2x $tk
+- verify error generated if updater.update contains 2x $op
+- verify error generated if updater.update contains 2x $hi
+- verify error generated if updater.update contains 2x $lo
+- verify error generated if updater.update contains 2x $cl
+- verify error generated if updater.update contains 2x $vl
+- verify error generated if updater.update does not contain $ymd nor $yr
+- verify error generated if updater.update does not contain $ymd nor $mn
+- verify error generated if updater.update does not contain $ymd nor $dy
+- verify error generated if updater.update contains $ymd and $yr
+- verify error generated if updater.update contains $ymd and $mn
+- verify error generated if updater.update contains $ymd and $dy
+- verify error generated if updater.update contains 2x $ymd
+- verify error generated if updater.update contains 2x $yr
+- verify error generated if updater.update contains 2x $mn
+- verify error generated if updater.update contains 2x $dy
+
+- verify error generated if updater.delimit not set
+- verify error generated if updater.delimit empty
+
+- verify error generated if updater.database not set
+- verify error generated if updater.database empty
+- verify error generated if updater.database does not exist
+
+- verify error generated if updater.extension not set
+- verify error generated if updater.extension empty
+
+- verify error generated if updater.overwrite not set
+- verify error generated if updater.overwrite empty
+
+- verify error generated if updater.work not set
+- verify error generated if updater.work empty
+- verify error generated if updater.work does not exist
+
+
+Usage Tests
+-----------
+
+- verify error generated + return code if no command given
+- verify error generated + return code if unrecognized command given
+- verify error generated + return code if version command syntax incorrect
+- verify error generated + return code if help command syntax incorrect
+- verify no return code if help command syntax ok
+- verify error generated + return code if update command syntax incorrect
+  - invalid option
+  - --overwrite with no argument
+  - --overwrite with 2 arguments
+  - --overwrite with invalid argument
+  - verify no error generated with --overwrite false
+  - verify no error generated with --overwrite true
+  - verify --overwrite replaces updater.overwrite property
+  - --update-file with no argument
+  - --update-file with 2 arguments
+  - --update-file with a non-existent file
+- verify version command lists all properties
+
+
+Update File Tests
+-----------------
+
+- verify error generated if $tk not present
+- verify error generated if $op not present
+- verify error generated if $hi not present
+- verify error generated if $lo not present
+- verify error generated if $cl not present
+- verify error generated if $vl not present
+- verify error generated if $yr not present
+- verify error generated if $mn not present
+- verify error generated if $dy not present
+- verify error generated if $ymd not present
+- verify error generated if extra tokens present
+
+- verify error generated if $op not a number 
+- verify error generated if $hi not a number 
+- verify error generated if $lo not a number 
+- verify error generated if $cl not a number 
+- verify error generated if $vl not a number 
+- verify error generated if $yr not a number 
+- verify error generated if $mn not a number 
+- verify error generated if $dy not a number 
+- verify error generated if $ymd not a number 
+- verify error generated if $ymd not 8 characters
+
+- verify update file parsed with $ymd syntax
+- verify update file parsed with $yr/$mn/$dy syntax
+- verify $ig fields are ignored
+
+
+History File Tests
+------------------
+
+- verify error generated if YYYYMMDD not present
+- verify error generated if OPEN not present
+- verify error generated if HIGH not present
+- verify error generated if LOW not present
+- verify error generated if CLOSE not present
+- verify error generated if VOLUME not present
+- verify error generated if extra tokens present
+
+- verify error generated if YYYYMMDD not a number
+- verify error generated if YYYMMDD not 8 characters
+- verify error generated if OPEN not a number
+- verify error generated if HIGH not a number
+- verify error generated if LOW not a number
+- verify error generated if CLOSE not a number
+- verify error generated if VOLUME not a number
+- verify error generated if extra tokens present
+
+Functional Tests
+----------------
+
+- verify updating succeeds against empty file
+
+- verify updating succeeds against file length = 1, U < H
+- verify updating succeeds against file length = 1, U = H (ignore)
+- verify updating succeeds against file length = 1, U = H (overwrite)
+- verify updating succeeds against file length = 1, U > H
+
+- verify updating succeeds against file length = 2, U < H
+- verify updating succeeds against file length = 2, U = H (ignore)
+- verify updating succeeds against file length = 2, U = H (overwrite)
+- verify updating succeeds aganist file length = 2, U inserted
+- verify updating succeeds against file length = 2, U > H
+
+- verify updating succeeds against file length = 5, U < H
+- verify updating succeeds against file length = 5, U = H (ignore)
+- verify updating succeeds against file length = 5, U = H (overwrite)
+- verify updating succeeds against file length = 5, U inserted
+- verify updating succeeds against file length = 5, U > H
+
+- verify updating succeeds against file length = N, U < H
+- verify updating succeeds against file length = N, U = H (ignore)
+- verify updating succeeds against file length = N, U = H (overwrite)
+- verify updating succeeds against file length = N, U inserted
+- verify updating succeeds against file length = N, U > H
+
+- verify error generated if can't create .work file
+- verify error generated if .work file can't be copied back
+- verify .work file is deleted
+
+Version 1.10 Tests
+------------------
+
+- verify update w/ no options
+- verify update w/ --date, but no date
+- verify a date field of 7 characters
+- verify a date field of 9 characters
+- verify a date field of 8 characters, non-numeric
+- verify update w/ --noexist
+- verify update w/ --filebase, but no filebase
+- verify update w/ --filebase, with a non-existent file
+- verify deleting a date prior to all dates
+- verify deleting a date after all dates
+- verify deleting the first date in a file
+- verify deleting the last date in a file
+- verify deleting a date in the middle of a file
+- verify deleting all files
+- verify deleting a single file
+
+*** TODO ***
+
+- delete the file during updates if it wasn't actually updated...don't
+  copy it to the DB directory
+

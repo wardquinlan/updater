@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ "$JAVA_HOME" == "" ]; then
+  echo JAVA_HOME not defined
+  exit 1
+fi
+
+if [ "$UPDATER_HOME" == "" ]; then
+  echo UPDATER_HOME not defined
+  exit 1
+fi
+
+CLASSPATH=$UPDATER_HOME/updater.d
+CLASSPATH=$CLASSPATH:$UPDATER_HOME/updater.d/updater.jar
+CLASSPATH=$CLASSPATH:$UPDATER_HOME/updater.d/commons-logging-1.1.jar
+CLASSPATH=$CLASSPATH:$UPDATER_HOME/updater.d/log4j-1.2.14.jar
+CMD="$JAVA_HOME/bin/java -classpath $CLASSPATH -Xmx128m updater.Updater $@"
+eval $CMD
